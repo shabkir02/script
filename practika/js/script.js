@@ -200,3 +200,29 @@ if (login == 'admin' && login != '' && login != null && login != String) {
 }
 
 
+let arr = '@@!!!!4YY3784627!!@@7479274';
+
+console.log(arr.slice(3, 7));
+
+let fruit = '2025-56-45-54-32';
+
+let arr = fruit.split('-');
+
+console.log(arr[0] + arr[2]);
+
+
+let str = 'js';
+
+console.log(str.toUpperCase());
+
+let str = 'JS';
+
+console.log(str.toLowerCase());
+
+let string = 'я учу javascript'; 
+
+console.log(string.split(' '));
+console.log(...string.split(' '));
+
+
+
