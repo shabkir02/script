@@ -207,4 +207,56 @@ window.addEventListener('DOMContentLoaded', () => {
         13, 
         '.menu .container'
     ).render();
+
+    // Forms 
+
+    const forms = document.querySelectorAll('form');
+
+    const massage = {
+        loading: 'Загрузка',
+        succes: 'Спасибо скокро мы с вами свяжимся',
+        failure: 'Что-то пошло не так'
+    };
+
+    forms.forEach(item => {
+        postData(item);
+    });
+
+    function postData (form) {
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            const statusMassage = document.createElement('div');
+            statusMassage.classList.add('status');
+            statusMassage.textContent = massage.loading;
+            form.append(statusMassage);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'server.php');
+
+            request.setRequestHeader('Content-type', 'aplication/json');
+            const formData = new FormData(form);
+
+            const object = {};
+            formData.forEach((key, value) => {
+                object[key] = value;
+            });
+            
+            const json = JSON.stringify(object);
+            request.send(json);
+
+            request.addEventListener('load', () => {
+                if (request.status === 200) {
+                    console.log(request.response);
+                    statusMassage.textContent = massage.succes;
+                    form.reset();
+                    setTimeout(() => {
+                        statusMassage.remove();
+                    }, 2000);
+                } else {
+                    statusMassage.textContent = massage.failure;
+                }
+            });
+        });
+    }
 });
